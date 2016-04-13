@@ -30,7 +30,7 @@ long Ultrasonic::Timing()
 /*
 	Send an ultrasonic sensor signal to the bot
 */
-long Ultrasonic::Sending()
+long Ultrasonic::Send()
 {
   digitalWrite(Trig_pin, LOW);
   delayMicroseconds(2);
@@ -42,7 +42,7 @@ long Ultrasonic::Sending()
 /*
   Recieve an ultrasonic sensor reading from the sender
 */
-long Ultrasonic::Recieving()
+long Ultrasonic::Recieve()
 {
   duration = pulseIn(Echo_pin,HIGH);  
   distance_cm = duration /29 / 2 ;

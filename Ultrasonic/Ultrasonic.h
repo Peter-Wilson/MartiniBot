@@ -17,8 +17,8 @@ class Ultrasonic
   public:
     Ultrasonic(int TP, int EP);
     long Timing();
-    long Sending();
-    long Recieving();
+    long Send();
+    long Recieve();
     long Ranging(int sys);
 
     private:
