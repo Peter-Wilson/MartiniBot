@@ -1,6 +1,12 @@
 bool findingMode;
 int distanceToMove;
 
+//Standard PWM DC control
+int E1 = 5;     //M1 Speed Control
+int E2 = 6;     //M2 Speed Control
+int M1 = 4;    //M1 Direction Control
+int M2 = 7;    //M1 Direction Control
+
 void setup() {  
   // setup the xbee connection 
   Serial.begin(115200);
@@ -14,7 +20,7 @@ void setup() {
 
 void loop() {
 
-  Serial.print("lololol");
+  Serial.print('A');
     /*
   //wait for user to enter the button
   if(!findingMode && Serial.available > 0)
@@ -41,13 +47,6 @@ void loop() {
   }
   */
 }
-
-//Standard PWM DC control
-int E1 = 5;     //M1 Speed Control
-int E2 = 6;     //M2 Speed Control
-int M1 = 4;    //M1 Direction Control
-int M2 = 7;    //M1 Direction Control
-
 
 void stop(void)                    //Stop
 {
