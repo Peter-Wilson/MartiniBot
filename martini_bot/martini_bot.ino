@@ -4,7 +4,7 @@ int distanceToMove;
 void setup() {  
   // setup the xbee connection 
   Serial.begin(115200);
-  
+  int i;
   for(i=4;i<=7;i++)
     pinMode(i, OUTPUT);  
   
@@ -13,7 +13,9 @@ void setup() {
 }
 
 void loop() {
-    
+
+  Serial.print("lololol");
+    /*
   //wait for user to enter the button
   if(!findingMode && Serial.available > 0)
   {
@@ -37,6 +39,7 @@ void loop() {
      
      //when within threashold, stop
   }
+  */
 }
 
 //Standard PWM DC control
