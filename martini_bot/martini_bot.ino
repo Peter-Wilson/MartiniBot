@@ -1,5 +1,10 @@
+#include "Ultrasonic2.h"
+
+int distance;
+Ultrasonic ultrasonic(9,8);
 bool findingMode;
 int distanceToMove;
+int Echo_pin = 9;
 
 //Standard PWM DC control
 int E1 = 5;     //M1 Speed Control
@@ -20,8 +25,17 @@ void setup() {
 
 void loop() {
 
-  //Serial.print('A');
-  if(Serial.available() > 0)
+  distance = pulseIn(Echo_pin,HIGH);
+  Serial.println(distance);
+  /*if(distance > 100) 
+  {
+    advance (255,255); 
+  }
+  else
+  {
+    stop();
+  }*/
+  /*if(Serial.available() > 0)
   {
       char input = Serial.read();
       if(input == 'W')

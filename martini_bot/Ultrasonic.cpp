@@ -45,7 +45,7 @@ void Ultrasonic::Send()
 long Ultrasonic::Recieve()
 {
   duration = pulseIn(Echo_pin,HIGH);  
-  distance_cm = duration /29 / 2 ;
+  long distance_cm = duration /29 / 2 ;
   return distance_cm;
 }
 
