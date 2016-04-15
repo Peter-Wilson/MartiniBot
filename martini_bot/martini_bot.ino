@@ -20,7 +20,35 @@ void setup() {
 
 void loop() {
 
-  Serial.print('A');
+  //Serial.print('A');
+  if(Serial.available() > 0)
+  {
+      char input = Serial.read();
+      if(input == 'W')
+      {
+        advance (255,255);   //move forward in max speed
+        delay(200);
+        stop();
+      }
+      if(input == 'A')
+      {
+        turn_L (100,100);   
+        delay(200);
+        stop();
+      }
+      if(input == 'S')
+      {
+        back_off (255,255); 
+        delay(200);
+        stop();
+      }
+      if(input == 'D')
+      {
+        turn_R (100,100);  
+        delay(200);
+        stop();
+      }
+  }
     /*
   //wait for user to enter the button
   if(!findingMode && Serial.available > 0)
