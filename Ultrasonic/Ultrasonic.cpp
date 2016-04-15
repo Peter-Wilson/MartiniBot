@@ -6,7 +6,7 @@
 */
 
 #include "Arduino.h"
-#include "Ultrasonic.h"
+#include "Ultrasonic2.h"
 
 Ultrasonic::Ultrasonic(int TP, int EP)
 {
@@ -30,7 +30,7 @@ long Ultrasonic::Timing()
 /*
 	Send an ultrasonic sensor signal to the bot
 */
-long Ultrasonic::Send()
+void Ultrasonic::Send()
 {
   digitalWrite(Trig_pin, LOW);
   delayMicroseconds(2);

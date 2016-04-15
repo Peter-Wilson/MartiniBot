@@ -5,8 +5,8 @@
 */
 
 
-#ifndef Ultrasonic_h
-#define Ultrasonic_h
+#ifndef Ultrasonic2_h
+#define Ultrasonic2_h
 
 
 #define CM 1
@@ -17,7 +17,7 @@ class Ultrasonic
   public:
     Ultrasonic(int TP, int EP);
     long Timing();
-    long Send();
+    void Send();
     long Recieve();
     long Ranging(int sys);
 
