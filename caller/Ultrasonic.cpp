@@ -35,7 +35,7 @@ void Ultrasonic::Send()
   digitalWrite(Trig_pin, LOW);
   delayMicroseconds(2);
   digitalWrite(Trig_pin, HIGH);
-  delayMicroseconds(10);
+  delayMicroseconds(20);
   digitalWrite(Trig_pin, LOW);
 }
 

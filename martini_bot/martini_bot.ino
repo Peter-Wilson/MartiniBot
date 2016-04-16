@@ -4,7 +4,7 @@ int distance;
 Ultrasonic ultrasonic(9,8);
 bool findingMode;
 int distanceToMove;
-int Echo_pin = 9;
+int Trig_pin = 9;
 
 //Standard PWM DC control
 int E1 = 5;     //M1 Speed Control
@@ -25,8 +25,12 @@ void setup() {
 
 void loop() {
 
-  distance = pulseIn(Echo_pin,HIGH);
-  Serial.println(distance);
+  digitalWrite(Trig_pin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(Trig_pin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(Trig_pin, LOW);
+  //Serial.println(distance);
   /*if(distance > 100) 
   {
     advance (255,255); 
