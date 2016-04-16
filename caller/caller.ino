@@ -9,7 +9,7 @@ void setup() {
 
 void loop() {
   //check for radio signal
-  if(Serial.avaialable() > 0)
+  if(Serial.available() > 0)
   {
       //read command
       char input = Serial.read();
