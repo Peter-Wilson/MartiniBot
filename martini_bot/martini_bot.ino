@@ -1,10 +1,13 @@
 #include "Ultrasonic2.h"
 
-int distance;
+long distance, check;
 Ultrasonic ultrasonic(9,8);
 bool findingMode;
 int distanceToMove;
-int Echo_pin = 9;
+
+//XBee Pins
+int Tx = 1;
+int Rx = 0;
 
 //Standard PWM DC control
 int E1 = 5;     //M1 Speed Control
@@ -25,69 +28,45 @@ void setup() {
 
 void loop() {
 
-  distance = pulseIn(Echo_pin,HIGH);
-  Serial.println(distance);
-  /*if(distance > 100) 
-  {
-    advance (255,255); 
-  }
-  else
-  {
-    stop();
-  }*/
-  /*if(Serial.available() > 0)
-  {
-      char input = Serial.read();
-      if(input == 'W')
-      {
-        advance (255,255);   //move forward in max speed
-        delay(200);
-        stop();
-      }
-      if(input == 'A')
-      {
-        turn_L (100,100);   
-        delay(200);
-        stop();
-      }
-      if(input == 'S')
-      {
-        back_off (255,255); 
-        delay(200);
-        stop();
-      }
-      if(input == 'D')
-      {
-        turn_R (100,100);  
-        delay(200);
-        stop();
-      }
-  }
-    /*
-  //wait for user to enter the button
-  if(!findingMode && Serial.available > 0)
-  {
-      //controller sends radio signal to start search
-      char input = Serial.read();
-      if(input == 'y')
-        findingMode = true;
-  }
+  //Rotate 45*
+  /*turn_R(100,100);
+  delay(50);
+  stop();*/
 
-  if(findingMode)
-  {
-    if(distanceToMove == 0)
-    {
-      //trigger for reading
-      Serial.write('s');
-    }
-    
-    //if no reading found, rotate 45 degrees trigger for reading (repeat)
-  
-     //move forward x units, trigger for new reading (repeat)
-     
-     //when within threashold, stop
+  //Test Direction
+  distance = 0;
+  check = 0;
+
+  for (int i = 0; i < 5; i++){
+    distance = distance + ultrasonic.Ranging(CM);
   }
-  */
+  distance = distance / 5;
+
+  Serial.write('B');
+
+  for (int i = 0; i < 5; i++){
+    check = check + ultrasonic.Ranging(CM);
+  }
+  check = check / 5;
+
+  Serial.write('S');
+
+  if (distance * 0.7 > check || distance * 1.3 < check){
+    //move Forward
+    advance(100,100);
+    delay(50);
+    stop();
+    delay(50);
+    back_off(100,100);
+    delay(50);
+    stop();
+  }
+  else {
+    //Rotate 60*
+    /*turn_R(100,100);
+    delay(50);
+    stop();*/
+  }
 }
 
 void stop(void)                    //Stop
