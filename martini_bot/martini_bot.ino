@@ -3,14 +3,8 @@
 
 long distance, check;
 Ultrasonic ultrasonic(9,8);
-bool findingMode;
-int distanceToMove;
 int leftDistance;
 int rightDistance;
-
-//XBee Pins
-int Tx = 1;
-int Rx = 0;
 
 //Standard PWM DC control
 int E1 = 5;     //M1 Speed Control
@@ -19,44 +13,49 @@ int M1 = 4;    //M1 Direction Control
 int M2 = 7;    //M1 Direction Control
 
 void setup() {  
-  // setup the xbee connection 
+  // setup the xbee connection   
+  Wire.begin();
   Serial.begin(115200);
-  leftDistance = 0;
-  rightDistance = 0;
   int i;
   for(i=4;i<=7;i++)
     pinMode(i, OUTPUT);  
-  
-  findingMode = false;
-  distanceToMove = 0;
+
+  leftDistance = 0;
+  rightDistance = 0;
+
+  //idle();
 }
 
 void loop() {
-
-  //Rotate 45*
-  /*turn_R(100,100);
-  delay(50);
-  stop();*/
-
   //Test Direction
   distance = 0;
   check = 0;
 
-  for (int i = 0; i < 5; i++){
-    distance = distance + ultrasonic.Ranging(CM);
+  for (int i = 0; i < 10; i++){
+    int temp = 0;
+    temp = ultrasonic.Ranging(CM);
+    if (temp < 2000){
+      distance = distance + temp;
+    }
+    else {
+      i--; }
+    delay(10);
   }
-  distance = distance / 5;
+  distance = distance / 10;
 
   Serial.write('B');
+  delay(5);
 
-  for (int i = 0; i < 5; i++){
+  for (int i = 0; i < 10; i++){
     check = check + ultrasonic.Ranging(CM);
+    delay(10);
   }
-  check = check / 5;
+  check = check / 10;
 
   Serial.write('S');
+  delay(5);
 
-  if (distance * 0.7 > check || distance * 1.3 < check){
+  if (distance * 0.7 > check){
     //move Forward
     leftDistance = 0;
     rightDistance = 0;
@@ -67,10 +66,40 @@ void loop() {
       UpdateDistance();
     }
     stop();
+    if (check / 2 < 10){ //Terminate
+      //idle();
+    }
   }
   else {
-    turn60Left();
+    leftDistance = 0;
+    turn_a_bit();
   }
+  delay(50);
+}
+
+
+
+void turn_a_bit(){
+  turn_L(100,100);
+  while(leftDistance < 3)
+  {
+      delay(20);
+      UpdateDistance();
+  }  
+  stop();
+  leftDistance = 0;
+}
+
+void UpdateDistance()
+{
+  Wire.requestFrom(0x7, 1); // request 1 byte from slave device #7
+   if (Wire.available()) { //make sure you got something
+     byte c = Wire.read();
+      leftDistance += c&0x0F;
+      rightDistance += (c>>4)&0x0F;
+     Serial.print(c); // print it as a number; not a character code
+     Serial.println();
+     }
 }
 
 void stop(void)                    //Stop
@@ -106,24 +135,14 @@ void turn_R (char a,char b)             //Turn Right
   analogWrite (E2,b);    
   digitalWrite(M2,LOW);
 }
-void UpdateDistance()
-{
-  Wire.requestFrom(0x7, 1); // request 1 byte from slave device #7
-   if (Wire.available()) { //make sure you got something
-     byte c = Wire.read();
-      leftDistance += c&0x0F;
-      rightDistance += (c>>4)&0x0F;
-     Serial.print(c); // print it as a number; not a character code
-     Serial.println();
-     }
+
+void idle(){
+  char c = '';
+  while (c != 'A'){
+    if (Serial.available > 0){
+      c = Serial.read();
+    }
+    delay(50);
+  }
 }
 
-void turn60Left(){  
-  leftDistance = 0;
-  while(leftDistance < 25)
-  {
-      turn_L(100,100);
-      delay(50);
-      UpdateDistance();
-  }    
-}
