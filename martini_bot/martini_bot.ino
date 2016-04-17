@@ -1,9 +1,12 @@
 #include "Ultrasonic2.h"
+#include <Wire.h>
 
 long distance, check;
 Ultrasonic ultrasonic(9,8);
 bool findingMode;
 int distanceToMove;
+int leftDistance;
+int rightDistance;
 
 //XBee Pins
 int Tx = 1;
@@ -18,6 +21,8 @@ int M2 = 7;    //M1 Direction Control
 void setup() {  
   // setup the xbee connection 
   Serial.begin(115200);
+  leftDistance = 0;
+  rightDistance = 0;
   int i;
   for(i=4;i<=7;i++)
     pinMode(i, OUTPUT);  
@@ -53,19 +58,18 @@ void loop() {
 
   if (distance * 0.7 > check || distance * 1.3 < check){
     //move Forward
+    leftDistance = 0;
+    rightDistance = 0;
     advance(100,100);
-    delay(50);
-    stop();
-    delay(50);
-    back_off(100,100);
-    delay(50);
+    while(leftDistance < check/2)
+    {
+      delay(50);
+      UpdateDistance();
+    }
     stop();
   }
   else {
-    //Rotate 60*
-    /*turn_R(100,100);
-    delay(50);
-    stop();*/
+    turn60Left();
   }
 }
 
@@ -101,4 +105,25 @@ void turn_R (char a,char b)             //Turn Right
   digitalWrite(M1,HIGH);    
   analogWrite (E2,b);    
   digitalWrite(M2,LOW);
+}
+void UpdateDistance()
+{
+  Wire.requestFrom(0x7, 1); // request 1 byte from slave device #7
+   if (Wire.available()) { //make sure you got something
+     byte c = Wire.read();
+      leftDistance += c&0x0F;
+      rightDistance += (c>>4)&0x0F;
+     Serial.print(c); // print it as a number; not a character code
+     Serial.println();
+     }
+}
+
+void turn60Left(){  
+  leftDistance = 0;
+  while(leftDistance < 25)
+  {
+      turn_L(100,100);
+      delay(50);
+      UpdateDistance();
+  }    
 }
