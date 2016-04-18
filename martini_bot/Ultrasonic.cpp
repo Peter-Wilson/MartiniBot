@@ -45,15 +45,15 @@ void Ultrasonic::Send()
 long Ultrasonic::Recieve()
 {
   duration = pulseIn(Echo_pin,HIGH);  
-  long distance_cm = duration /29;
+  long distance_cm = duration /29/2;
   return distance_cm;
 }
 
 long Ultrasonic::Ranging(int sys)
 {
   Timing();
-  distacne_cm = duration /29 ;
-  distance_inc = duration / 74;
+  distacne_cm = duration /29/2;
+  distance_inc = duration / 74/2;
   if (sys)
   return distacne_cm;
   else

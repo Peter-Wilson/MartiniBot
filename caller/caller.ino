@@ -5,14 +5,18 @@ Ultrasonic ultrasonic(8,7);
 void setup() {
  // setup the xbee connection 
   Serial.begin(115200);
+  Serial.write('A');
 }
 
 void loop() {
+      
   //check for radio signal
   if(Serial.available() > 0)
   {
       //read command
       char input = Serial.read();
+
+      
 
       //if send
       if(input == 'B')
@@ -23,6 +27,6 @@ void loop() {
           ultrasonic.Send();
         }
       } 
-  }
+  } 
 
 }

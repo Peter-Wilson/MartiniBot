@@ -5,6 +5,7 @@ long distance, check;
 Ultrasonic ultrasonic(9,8);
 int leftDistance;
 int rightDistance;
+int x;
 
 //Standard PWM DC control
 int E1 = 5;     //M1 Speed Control
@@ -23,7 +24,7 @@ void setup() {
   leftDistance = 0;
   rightDistance = 0;
 
-  //idle();
+  idle();
 }
 
 void loop() {
@@ -31,26 +32,45 @@ void loop() {
   distance = 0;
   check = 0;
 
-  for (int i = 0; i < 10; i++){
+  x = 20;
+  delay(25);
+  for (int i = 0; i < x; i++){
     int temp = 0;
     temp = ultrasonic.Ranging(CM);
-    if (temp < 2000){
+    if (temp < 3000){
       distance = distance + temp;
     }
     else {
-      i--; }
+      x++;
+      if(x==25)
+      {
+        break;
+      }
+    }
     delay(10);
   }
-  distance = distance / 10;
+  distance = distance / 20;
 
   Serial.write('B');
   delay(5);
-
-  for (int i = 0; i < 10; i++){
-    check = check + ultrasonic.Ranging(CM);
+  x = 20;
+  
+  for (int i = 0; i < x; i++){
+    int temp = 0;
+    temp = ultrasonic.Ranging(CM);
+    if (temp < 3000){
+      check = check + temp;
+    }
+    else {
+      x++;
+      if(x==25)
+      {
+        break;
+      }
+    }
     delay(10);
   }
-  check = check / 10;
+  check = check / 20;
 
   Serial.write('S');
   delay(5);
@@ -67,14 +87,14 @@ void loop() {
     }
     stop();
     if (check / 2 < 10){ //Terminate
-      //idle();
+      idle();
     }
   }
   else {
     leftDistance = 0;
     turn_a_bit();
   }
-  delay(50);
+  delay(50); 
 }
 
 
@@ -97,8 +117,6 @@ void UpdateDistance()
      byte c = Wire.read();
       leftDistance += c&0x0F;
       rightDistance += (c>>4)&0x0F;
-     Serial.print(c); // print it as a number; not a character code
-     Serial.println();
      }
 }
 
@@ -137,9 +155,9 @@ void turn_R (char a,char b)             //Turn Right
 }
 
 void idle(){
-  char c = '';
+  char c;
   while (c != 'A'){
-    if (Serial.available > 0){
+    if (Serial.available() > 0){
       c = Serial.read();
     }
     delay(50);
