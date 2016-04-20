@@ -10,5 +10,3 @@ Here is a couple of videos showing the robot being controlled using the radio co
 
 
 [![ScreenShot](https://github.com/Peter-Wilson/MartiniBot/blob/develop/Pictures/IMG_20160420_134347.jpg)](https://youtu.be/oRUg_URGGXE)
-
-[Link to Video of Remote]()
