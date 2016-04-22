@@ -1,5 +1,7 @@
 # MartiniBot
-A robot who will locate the user and deliver martinis when the users requests
+Martin the Martini Bot created by Michael Alsbergas and Peter Wilson for COSC 4P78: Robotics class at Brock University
+
+Martin is a robot who will locate the user and deliver martinis when the users requests
 
 Be sure to check out the Wiki for more details on development and creation of this robot.
 
