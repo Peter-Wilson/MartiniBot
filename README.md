@@ -1,5 +1,7 @@
 # MartiniBot
-A robot who will locate the user and deliver martinis when the users requests
+Martin the Martini Bot created by Michael Alsbergas and Peter Wilson for COSC 4P78: Robotics class at Brock University
+
+Martin is a robot who will locate the user and deliver martinis when the users requests
 
 Be sure to check out the Wiki for more details on development and creation of this robot.
 
@@ -29,4 +31,4 @@ remote. It has and XBee radio to send and recieve commands from the remote. Fina
 ATtiny to determine where and how far the bot travelled. Below is an image of the robot. Click on the image to see a video of the 
 robot in action.
 
-[![ScreenShot](https://github.com/Peter-Wilson/MartiniBot/blob/develop/Pictures/martini_bot_picture.jpg)](https://youtu.be/oRUg_URGGXE)
+[![ScreenShot](https://github.com/Peter-Wilson/MartiniBot/blob/develop/Pictures/martini_bot_picture.jpg)](https://youtu.be/ljS_DBb8GJ8)
