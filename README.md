@@ -16,7 +16,7 @@ user.
 
 ##Remote:
 The remote was built with a "hackduino" as it's microcontroller. It uses XBee radio communication to give and 
-recieve commands from the robot. The radio antenna sticks out from the bottom of the remove. It also uses an Ultrasonic 
+recieve commands from the robot. The radio antenna sticks out from the bottom of the remote. It also uses an Ultrasonic 
 sensor to broadcast the location of the remote to the robot. This needs to be pointed at the robot at all times.
 To activate the robot, simply press the button on the middle of the remote and that will activate the Martini bot to move towards
 the user. Here is an image of the remote. Click on it to see a video of it.
