@@ -1,5 +1,5 @@
 # MartiniBot
-Martin the Martini Bot created by Michael Alsbergas and Peter Wilson for COSC 4P78: Robotics class at Brock University
+Martin the Martini Bot created by (Michael Alsbergas|https://github.com/Duke-Deathknell) and (Peter Wilson|https://github.com/Peter-Wilson) for COSC 4P78: Robotics class at Brock University
 
 Martin is a robot who will locate the user and deliver martinis when the users requests
 
